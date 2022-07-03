@@ -24,11 +24,11 @@ interface Car {
         println("Driving away in a $this)")
     }
 }
+
 class Accord : Car
 class Cadillac : Car
 class Mustang : Car
 class BMW : Car
-
 
 // For this example, we are shopping for a Car based on the CarManufacturer
 sealed class CarManufacturer {
@@ -38,12 +38,18 @@ sealed class CarManufacturer {
     object GeneralMotors : CarManufacturer()
 }
 
+class BasicDealership : Dealership {
+    private val carFactory = CarFactory()
+
+    override fun getCarByManufacturer(carManufacturer: CarManufacturer): Car =
+        carFactory.getCarByManufacturer(carManufacturer)
+}
 
 fun main() {
-    val carFactory = CarFactory()
+    val basicDealership = BasicDealership()
 
-    val accord = carFactory.getCarByManufacturer(CarManufacturer.HondaMotor)
-    val cadillac = carFactory.getCarByManufacturer(CarManufacturer.GeneralMotors)
+    val accord = basicDealership.getCarByManufacturer(CarManufacturer.HondaMotor)
+    val cadillac = basicDealership.getCarByManufacturer(CarManufacturer.GeneralMotors)
 
     accord.drive() // prints "Driving away in a Accord"
     cadillac.drive() // prints "Driving away in a Cadillac"
