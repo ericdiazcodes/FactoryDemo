@@ -6,6 +6,7 @@ interface ProperCarFactory {
     fun getCar(): Car
 }
 
+// Create subclasses of the Factory that will return their own specific subclass of Car.
 class HondaMotorFactory : ProperCarFactory {
     override fun getCar(): Car = Accord()
 }
